@@ -1,19 +1,20 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
+import FlexBetween from "@/components/FlexBetween";
 import {
   useGetKpisQuery,
   useGetProductsQuery,
   useGetTransactionsQuery,
 } from "@/state/api";
-import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { Box, Typography, useTheme } from "@mui/material";
-import FlexBetween from "@/components/FlexBetween";
+import { DataGrid, GridCellParams } from "@mui/x-data-grid";
+import React, { useMemo } from "react";
 import { Cell, Pie, PieChart } from "recharts";
-import { useMemo } from "react";
 
 const Row3 = () => {
   const { palette } = useTheme();
   const pieColors = [palette.primary[800], palette.primary[500]];
+
   const { data: kpiData } = useGetKpisQuery();
   const { data: productData } = useGetProductsQuery();
   const { data: transactionData } = useGetTransactionsQuery();
@@ -80,7 +81,7 @@ const Row3 = () => {
       headerName: "Count",
       flex: 0.1,
       renderCell: (params: GridCellParams) =>
-        `${(params.value as Array<string>).length}`,
+        (params.value as Array<string>).length,
     },
   ];
 
@@ -112,8 +113,8 @@ const Row3 = () => {
           }}
         >
           <DataGrid
-            rowHeight={35}
             columnHeaderHeight={25}
+            rowHeight={35}
             hideFooter={true}
             rows={productData || []}
             columns={productColumns}
@@ -123,10 +124,10 @@ const Row3 = () => {
       <DashboardBox gridArea="h">
         <BoxHeader
           title="Recent Orders"
-          sideText={`${transactionData?.length} lates transactions`}
+          sideText={`${transactionData?.length} latest transactions`}
         />
         <Box
-          mt="0.5rem"
+          mt="1rem"
           p="0 0.5rem"
           height="80%"
           sx={{
@@ -146,8 +147,8 @@ const Row3 = () => {
           }}
         >
           <DataGrid
-            rowHeight={35}
             columnHeaderHeight={25}
+            rowHeight={35}
             hideFooter={true}
             rows={transactionData || []}
             columns={transactionColumns}
@@ -179,7 +180,10 @@ const Row3 = () => {
         </FlexBetween>
       </DashboardBox>
       <DashboardBox gridArea="j">
-        <BoxHeader title="Ovrall Summary and Explantion Data" sideText="15%" />
+        <BoxHeader
+          title="Overall Summary and Explanation Data"
+          sideText="+15%"
+        />
         <Box
           height="15px"
           margin="1.25rem 1rem 0.4rem 1rem"
@@ -193,10 +197,11 @@ const Row3 = () => {
             width="40%"
           ></Box>
         </Box>
-        <Typography margin="0 1rem" variant="h5">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris.
+        <Typography margin="0 1rem" variant="h6">
+          Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
+          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
+          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
+          sed. In volutpat nullam at est id cum pulvinar nunc.
         </Typography>
       </DashboardBox>
     </>
